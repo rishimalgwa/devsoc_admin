@@ -24,13 +24,13 @@ class _MessageState extends State<Message> {
     'messageHead': '',
     'messageBody': '',
   };
-  String teamNumber1;
+  String? teamNumber1;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   String errorMessage = '';
 
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     print('Checkpoint 1');
@@ -82,7 +82,7 @@ class _MessageState extends State<Message> {
                   child: Text(errorMessage),
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text('OK'),
                     onPressed: () => Navigator.of(context).pop(),
                   ),

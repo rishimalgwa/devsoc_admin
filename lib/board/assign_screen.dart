@@ -9,7 +9,7 @@ import '../providers/auth.dart';
 class AssignScreen extends StatefulWidget {
   @override
   _AssignScreenState createState() => _AssignScreenState();
-  final String teamId;
+  final String? teamId;
   AssignScreen(this.teamId);
 }
 
@@ -28,8 +28,8 @@ class _AssignScreenState extends State<AssignScreen> {
     _getEvaluators();
   }
 
-  List<int> assignedEvaluators = [];
-  Map<String, dynamic> evaluators;
+  List<int?> assignedEvaluators = [];
+  Map<String, dynamic>? evaluators;
   bool _isLoaded = false;
 
   Future<void> _submit() async {
@@ -37,14 +37,14 @@ class _AssignScreenState extends State<AssignScreen> {
     final eval = assignedEvaluators;
     final response = await http.post(Uri.parse(url),
         headers: {
-          'Authorization': Provider.of<Auth>(context, listen: false).token,
+          'Authorization': Provider.of<Auth>(context, listen: false).token!,
           'Headers': 'application/json'
         },
         body: json.encode({
           'team_id': widget.teamId,
           'members': eval,
         }));
-    print('data : ' + widget.teamId + eval.toString());
+    print('data : ' + widget.teamId! + eval.toString());
     final resBody = json.decode(response.body);
     print(response.statusCode);
     print(resBody);
@@ -75,13 +75,13 @@ class _AssignScreenState extends State<AssignScreen> {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': Provider.of<Auth>(context, listen: false).token
+          'Authorization': Provider.of<Auth>(context, listen: false).token!
         },
       );
       final resBody = json.decode(response.body);
       setState(() {
         evaluators = resBody;
-        for (var i = 0; i < evaluators['usersCount']; i++) {
+        for (var i = 0; i < evaluators!['usersCount']; i++) {
           isSelected.add(false);
         }
       });
@@ -95,13 +95,13 @@ class _AssignScreenState extends State<AssignScreen> {
     }
   }
 
-  void toggleSelection(int id, int i) {
+  void toggleSelection(int? id, int i) {
     setState(() {
       if (isSelected[i]) {
-        assignedEvaluators.remove(evaluators['data'][i]['user_id']);
+        assignedEvaluators.remove(evaluators!['data'][i]['user_id']);
         isSelected[i] = false;
       } else {
-        assignedEvaluators.add(evaluators['data'][i]['user_id']);
+        assignedEvaluators.add(evaluators!['data'][i]['user_id']);
         isSelected[i] = true;
       }
     });
@@ -137,14 +137,14 @@ class _AssignScreenState extends State<AssignScreen> {
                     ),
                     ListView.builder(
                       shrinkWrap: true,
-                      itemCount: evaluators['usersCount'],
+                      itemCount: evaluators!['usersCount'],
                       itemBuilder: (ctx, i) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Card(
                           color: Color(0xFF072031),
                           child: ListTile(
-                            title: Text(evaluators['data'][i]['fullName']),
-                            subtitle: Text(evaluators['data'][i]['userType']),
+                            title: Text(evaluators!['data'][i]['fullName']),
+                            subtitle: Text(evaluators!['data'][i]['userType']),
                             trailing: isSelected[i]
                                 ? Icon(
                                     Icons.check,
@@ -152,7 +152,7 @@ class _AssignScreenState extends State<AssignScreen> {
                                   )
                                 : null,
                             onTap: () => toggleSelection(
-                              evaluators['data'][i]['user_id'],
+                              evaluators!['data'][i]['user_id'],
                               i,
                             ),
                             // selected: isSelected,

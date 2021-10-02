@@ -31,7 +31,7 @@ class _ChangePassState extends State<ChangePass> {
   String errorMessage = '';
 
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     print('Checkpoint 1');

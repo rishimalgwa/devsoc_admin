@@ -15,7 +15,7 @@ class BoardScreen extends StatefulWidget {
 }
 
 class _BoardScreenState extends State<BoardScreen> {
-  List<Map<String, Object>> _pages;
+  late List<Map<String, Object>> _pages;
   int _selectedPageIndex = 0;
 
   @override
@@ -61,7 +61,7 @@ class _BoardScreenState extends State<BoardScreen> {
       backgroundColor: Color(0xFF030D18),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
-        child: _pages[_selectedPageIndex]['page'],
+        child: _pages[_selectedPageIndex]['page'] as Widget,
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,

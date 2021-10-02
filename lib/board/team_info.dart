@@ -5,23 +5,22 @@ import 'package:http/http.dart' as http;
 import '../providers/auth.dart';
 import './evaluation.dart';
 import 'dart:convert';
-import 'dart:wasm';
 
 class TeamInfo extends StatefulWidget {
   @override
   _TeamInfoState createState() => _TeamInfoState();
 
-  final String teamId;
+  final String? teamId;
   TeamInfo(this.teamId);
 }
 
 class _TeamInfoState extends State<TeamInfo> {
   bool isLoaded = false;
-  Map<String, dynamic> _teamData;
+  Map<String, dynamic>? _teamData;
 
   @override
   void initState() {
-    String _token = Provider.of<Auth>(context, listen: false).token;
+    String _token = Provider.of<Auth>(context, listen: false).token!;
     getInfo(_token);
     super.initState();
   }
@@ -69,7 +68,7 @@ class _TeamInfoState extends State<TeamInfo> {
                               top: 30,
                             ),
                             child: Hero(
-                              tag: widget.teamId,
+                              tag: widget.teamId!,
                               child: Text(
                                 'Team Info', // replace with dynamic teamName
                                 textAlign: TextAlign.center,
@@ -94,10 +93,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Team Name: ${_teamData['teamInfo']['team_name']}",
+                                        "Team Name: ${_teamData!['teamInfo']['team_name']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -110,10 +109,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Team Number: ${_teamData['teamInfo']['team_number']}",
+                                        "Team Number: ${_teamData!['teamInfo']['team_number']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -126,10 +125,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Team Idea: ${_teamData['teamInfo']['idea']}",
+                                        "Team Idea: ${_teamData!['teamInfo']['idea']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -142,10 +141,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Team Leader: ${_teamData['teamInfo']['team_leader']}",
+                                        "Team Leader: ${_teamData!['teamInfo']['team_leader']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -158,10 +157,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Phone: ${_teamData['teamInfo']['team_leader_phone']}",
+                                        "Phone: ${_teamData!['teamInfo']['team_leader_phone']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -177,7 +176,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                         "Team Members : ",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -190,18 +189,18 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                         padding: const EdgeInsets.only(
                                             top: 15.0, left: 20),
-                                        child: _teamData['teamInfo']
+                                        child: _teamData!['teamInfo']
                                                     ['members'] ==
                                                 null
                                             ? Text('NO TEAM MATES',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline6
+                                                    .headline6!
                                                     .copyWith(
                                                         fontSize: 18,
                                                         color: Colors.red))
                                             : ListView.builder(
-                                                itemCount: _teamData['teamInfo']
+                                                itemCount: _teamData!['teamInfo']
                                                         ['members']
                                                     .length,
                                                 itemBuilder: (BuildContext ctxt,
@@ -211,10 +210,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                           const EdgeInsets.only(
                                                               top: 15.0),
                                                       child: Text(
-                                                        "$index ,${_teamData['teamInfo']['members'][index]}",
+                                                        "$index ,${_teamData!['teamInfo']['members'][index]}",
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline6
+                                                            .headline6!
                                                             .copyWith(
                                                               fontSize: 18,
                                                               color:
@@ -225,10 +224,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Track: ${_teamData['teamInfo']['track']}",
+                                        "Track: ${_teamData!['teamInfo']['track']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -241,10 +240,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Status: ${_teamData['teamInfo']['status']}",
+                                        "Status: ${_teamData!['teamInfo']['status']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -257,10 +256,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Score: ${_teamData['finalScore']}",
+                                        "Score: ${_teamData!['finalScore']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -286,7 +285,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                         "Round 1 Info",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -300,10 +299,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Round 1 Score: ${_teamData['round1Eval']['FinalScore']}",
+                                        "Round 1 Score: ${_teamData!['round1Eval']['FinalScore']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -322,7 +321,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                               padding: const EdgeInsets.only(
                                                   top: 15.0, left: 10),
                                               child:
-                                                  _teamData['round1Eval']
+                                                  _teamData!['round1Eval']
                                                               ['data'] ==
                                                           null
                                                       ? Text(
@@ -330,7 +329,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
-                                                              .headline6
+                                                              .headline6!
                                                               .copyWith(
                                                                   fontSize: 16,
                                                                   color: Colors
@@ -339,7 +338,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                                           shrinkWrap: true,
                                                           scrollDirection:
                                                               Axis.vertical,
-                                                          itemCount: _teamData[
+                                                          itemCount: _teamData![
                                                                       'round1Eval']
                                                                   ['data']
                                                               .length,
@@ -373,10 +372,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Eval Name: ${_teamData['round1Eval']['data'][index]['evalName']}",
+                                                                          "Eval Name: ${_teamData!['round1Eval']['data'][index]['evalName']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -397,10 +396,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Level: ${_teamData['round1Eval']['data'][index]['userType']}",
+                                                                          "Level: ${_teamData!['round1Eval']['data'][index]['userType']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -421,10 +420,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Novelty: ${_teamData['round1Eval']['data'][index]['novelty_slider']}",
+                                                                          "Novelty: ${_teamData!['round1Eval']['data'][index]['novelty_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -445,10 +444,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Feasability: ${_teamData['round1Eval']['data'][index]['tech_feasability_slider']}",
+                                                                          "Feasability: ${_teamData!['round1Eval']['data'][index]['tech_feasability_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -469,10 +468,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Impact: ${_teamData['round1Eval']['data'][index]['impact_slider']}",
+                                                                          "Impact: ${_teamData!['round1Eval']['data'][index]['impact_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -493,10 +492,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Presentation Quality: ${_teamData['round1Eval']['data'][index]['presentation_quality_slider']}",
+                                                                          "Presentation Quality: ${_teamData!['round1Eval']['data'][index]['presentation_quality_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -517,10 +516,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Bussiness Model: ${_teamData['round1Eval']['data'][index]['bussiness_model_slider']}",
+                                                                          "Bussiness Model: ${_teamData!['round1Eval']['data'][index]['bussiness_model_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -541,10 +540,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Scalability: ${_teamData['round1Eval']['data'][index]['scalability_slider']}",
+                                                                          "Scalability: ${_teamData!['round1Eval']['data'][index]['scalability_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -565,10 +564,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Remarks: ${_teamData['round1Eval']['data'][index]['remarks']}",
+                                                                          "Remarks: ${_teamData!['round1Eval']['data'][index]['remarks']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -583,10 +582,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Notes: ${_teamData['round1Eval']['data'][index]['remarks']}",
+                                                                          "Notes: ${_teamData!['round1Eval']['data'][index]['remarks']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -601,10 +600,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Suggestions Given: ${_teamData['round1Eval']['data'][index]['suggesstions_given']}",
+                                                                          "Suggestions Given: ${_teamData!['round1Eval']['data'][index]['suggesstions_given']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -619,10 +618,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Scaled Score: ${_teamData['round1Eval']['data'][index]['score']}",
+                                                                          "Scaled Score: ${_teamData!['round1Eval']['data'][index]['score']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -650,7 +649,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                         "Round 2 Info",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -664,10 +663,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Round 2 Score: ${_teamData['round2Eval']['FinalScore']}",
+                                        "Round 2 Score: ${_teamData!['round2Eval']['FinalScore']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -686,7 +685,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                               padding: const EdgeInsets.only(
                                                   top: 15.0, left: 20),
                                               child:
-                                                  _teamData['round2Eval']
+                                                  _teamData!['round2Eval']
                                                               ['data'] ==
                                                           null
                                                       ? Text(
@@ -694,7 +693,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
-                                                              .headline6
+                                                              .headline6!
                                                               .copyWith(
                                                                   fontSize: 16,
                                                                   color: Colors
@@ -703,7 +702,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                                           shrinkWrap: true,
                                                           scrollDirection:
                                                               Axis.vertical,
-                                                          itemCount: _teamData[
+                                                          itemCount: _teamData![
                                                                       'round2Eval']
                                                                   ['data']
                                                               .length,
@@ -737,10 +736,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Eval Name: ${_teamData['round2Eval']['data'][index]['evalName']}",
+                                                                          "Eval Name: ${_teamData!['round2Eval']['data'][index]['evalName']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -761,10 +760,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Level: ${_teamData['round2Eval']['data'][index]['userType']}",
+                                                                          "Level: ${_teamData!['round2Eval']['data'][index]['userType']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -785,10 +784,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Novelty: ${_teamData['round2Eval']['data'][index]['novelty_slider']}",
+                                                                          "Novelty: ${_teamData!['round2Eval']['data'][index]['novelty_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -809,10 +808,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Feasability: ${_teamData['round2Eval']['data'][index]['tech_feasability_slider']}",
+                                                                          "Feasability: ${_teamData!['round2Eval']['data'][index]['tech_feasability_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -833,10 +832,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Impact: ${_teamData['round2Eval']['data'][index]['impact_slider']}",
+                                                                          "Impact: ${_teamData!['round2Eval']['data'][index]['impact_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -857,10 +856,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Presentation Quality: ${_teamData['round2Eval']['data'][index]['presentation_quality_slider']}",
+                                                                          "Presentation Quality: ${_teamData!['round2Eval']['data'][index]['presentation_quality_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -881,10 +880,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Bussiness Model: ${_teamData['round2Eval']['data'][index]['bussiness_model_slider']}",
+                                                                          "Bussiness Model: ${_teamData!['round2Eval']['data'][index]['bussiness_model_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -905,10 +904,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Scalability: ${_teamData['round2Eval']['data'][index]['scalability_slider']}",
+                                                                          "Scalability: ${_teamData!['round2Eval']['data'][index]['scalability_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -929,10 +928,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Remarks: ${_teamData['round2Eval']['data'][index]['remarks']}",
+                                                                          "Remarks: ${_teamData!['round2Eval']['data'][index]['remarks']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -947,10 +946,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Notes: ${_teamData['round2Eval']['data'][index]['remarks']}",
+                                                                          "Notes: ${_teamData!['round2Eval']['data'][index]['remarks']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -965,10 +964,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Suggestions Given: ${_teamData['round2Eval']['data'][index]['suggesstions_given']}",
+                                                                          "Suggestions Given: ${_teamData!['round2Eval']['data'][index]['suggesstions_given']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -983,10 +982,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Score: ${_teamData['round2Eval']['data'][index]['score']}",
+                                                                          "Score: ${_teamData!['round2Eval']['data'][index]['score']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1014,7 +1013,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                         "Round 3 Info",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -1028,10 +1027,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Round 3 Score: ${_teamData['round3Eval']['FinalScore']}",
+                                        "Round 3 Score: ${_teamData!['round3Eval']['FinalScore']}",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -1050,7 +1049,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                               padding: const EdgeInsets.only(
                                                   top: 15.0, left: 20),
                                               child:
-                                                  _teamData['round3Eval']
+                                                  _teamData!['round3Eval']
                                                               ['data'] ==
                                                           null
                                                       ? Text(
@@ -1058,7 +1057,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
-                                                              .headline6
+                                                              .headline6!
                                                               .copyWith(
                                                                   fontSize: 16,
                                                                   color: Colors
@@ -1067,7 +1066,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                                           shrinkWrap: true,
                                                           scrollDirection:
                                                               Axis.vertical,
-                                                          itemCount: _teamData[
+                                                          itemCount: _teamData![
                                                                       'round2Eval']
                                                                   ['data']
                                                               .length,
@@ -1101,10 +1100,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Eval Name: ${_teamData['round3Eval']['data'][index]['evalName']}",
+                                                                          "Eval Name: ${_teamData!['round3Eval']['data'][index]['evalName']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1125,10 +1124,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Level: ${_teamData['round3Eval']['data'][index]['userType']}",
+                                                                          "Level: ${_teamData!['round3Eval']['data'][index]['userType']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1149,10 +1148,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Novelty: ${_teamData['round3Eval']['data'][index]['novelty_slider']}",
+                                                                          "Novelty: ${_teamData!['round3Eval']['data'][index]['novelty_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1173,10 +1172,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Feasability: ${_teamData['round3Eval']['data'][index]['tech_feasability_slider']}",
+                                                                          "Feasability: ${_teamData!['round3Eval']['data'][index]['tech_feasability_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1197,10 +1196,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Impact: ${_teamData['round3Eval']['data'][index]['impact_slider']}",
+                                                                          "Impact: ${_teamData!['round3Eval']['data'][index]['impact_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1221,10 +1220,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Presentation Quality: ${_teamData['round3Eval']['data'][index]['presentation_quality_slider']}",
+                                                                          "Presentation Quality: ${_teamData!['round3Eval']['data'][index]['presentation_quality_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1245,10 +1244,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Bussiness Model: ${_teamData['round3Eval']['data'][index]['bussiness_model_slider']}",
+                                                                          "Bussiness Model: ${_teamData!['round3Eval']['data'][index]['bussiness_model_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1269,10 +1268,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Scalability: ${_teamData['round3Eval']['data'][index]['scalability_slider']}",
+                                                                          "Scalability: ${_teamData!['round3Eval']['data'][index]['scalability_slider']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1293,10 +1292,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Remarks: ${_teamData['round3Eval']['data'][index]['remarks']}",
+                                                                          "Remarks: ${_teamData!['round3Eval']['data'][index]['remarks']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1311,10 +1310,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Notes: ${_teamData['round3Eval']['data'][index]['remarks']}",
+                                                                          "Notes: ${_teamData!['round3Eval']['data'][index]['remarks']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1329,10 +1328,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Suggestions Given: ${_teamData['round3Eval']['data'][index]['suggesstions_given']}",
+                                                                          "Suggestions Given: ${_teamData!['round3Eval']['data'][index]['suggesstions_given']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1347,10 +1346,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                                 15),
                                                                         child:
                                                                             Text(
-                                                                          "Score: ${_teamData['round3Eval']['data'][index]['score']}",
+                                                                          "Score: ${_teamData!['round3Eval']['data'][index]['score']}",
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .headline6
+                                                                              .headline6!
                                                                               .copyWith(
                                                                                 fontSize: 18,
                                                                                 color: Colors.black,
@@ -1381,7 +1380,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                         "Messages :",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .headline6!
                                             .copyWith(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -1391,18 +1390,18 @@ class _TeamInfoState extends State<TeamInfo> {
                                     Padding(
                                         padding: const EdgeInsets.only(
                                             top: 15.0, left: 20),
-                                        child: _teamData['messages'] == null
+                                        child: _teamData!['messages'] == null
                                             ? Text('No Messages',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline6
+                                                    .headline6!
                                                     .copyWith(
                                                         fontSize: 16,
                                                         color: Colors.red))
                                             : ListView.builder(
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
-                                                itemCount: _teamData['messages']
+                                                itemCount: _teamData!['messages']
                                                     .length,
                                                 itemBuilder: (BuildContext ctxt,
                                                     int index) {
@@ -1428,11 +1427,11 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                       left: 5,
                                                                       top: 15),
                                                               child: Text(
-                                                                "${_teamData['messages'][index]['user']['first_name']} ${_teamData['messages'][index]['user']['last_name']}",
+                                                                "${_teamData!['messages'][index]['user']['first_name']} ${_teamData!['messages'][index]['user']['last_name']}",
                                                                 style: Theme.of(
                                                                         context)
                                                                     .textTheme
-                                                                    .headline6
+                                                                    .headline6!
                                                                     .copyWith(
                                                                       fontSize:
                                                                           18,
@@ -1447,11 +1446,11 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                       left: 5,
                                                                       top: 15),
                                                               child: Text(
-                                                                "${_teamData['messages'][index]['message_heading']}: ${_teamData['messages'][index]['message_body']}",
+                                                                "${_teamData!['messages'][index]['message_heading']}: ${_teamData!['messages'][index]['message_body']}",
                                                                 style: Theme.of(
                                                                         context)
                                                                     .textTheme
-                                                                    .headline6
+                                                                    .headline6!
                                                                     .copyWith(
                                                                       fontSize:
                                                                           18,

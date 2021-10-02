@@ -9,10 +9,10 @@ class EvavluationPage extends StatefulWidget {
   @override
   _EvavluationPageState createState() => _EvavluationPageState();
 
-  final String teamName;
-  final String teamId;
-  final String evalId;
-  final int round;
+  final String? teamName;
+  final String? teamId;
+  final String? evalId;
+  final int? round;
   EvavluationPage(this.teamName, this.teamId, this.evalId, this.round);
 }
 
@@ -39,12 +39,12 @@ class _EvavluationPageState extends State<EvavluationPage> {
 
   Future<void> _submit() async {
     print('Checkpoint 1');
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       print(2);
       return;
     }
     final _review = _evalData['reviews'];
-    final _notes = _evalData['notes'];
+    final _notes = _evalData['notes']!;
     final _suggestions = _evalData['suggestions'];
     print(' review : ' + _notes);
     setState(() {
@@ -105,7 +105,7 @@ class _EvavluationPageState extends State<EvavluationPage> {
                   child: Text(errorMessage),
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text('OK'),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -144,7 +144,7 @@ class _EvavluationPageState extends State<EvavluationPage> {
                     padding: const EdgeInsets.only(top: 15.0),
                     child: Text(
                       'Team Name: ${widget.teamName}',
-                      style: Theme.of(context).textTheme.headline1.copyWith(
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 17,
                           ),
                       overflow: TextOverflow.fade,

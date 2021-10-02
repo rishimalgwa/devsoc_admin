@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:wasm';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,13 +8,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import './http_exception.dart';
 
 class Auth with ChangeNotifier {
-  String _token;
-  String _userType;
+  String? _token;
+  String? _userType;
   dynamic _teams;
   dynamic _allTeams;
-  String _username;
-  String _name;
-  String _token1;
+  String? _username;
+  String? _name;
+  String? _token1;
 
   int get userType {
     if ((_userType == 'Core-2nd Year') || (_userType == 'Board')) {
@@ -27,15 +26,15 @@ class Auth with ChangeNotifier {
     }
   }
 
-  String get userTypeText {
+  String? get userTypeText {
     return _userType;
   }
 
-  String get token {
+  String? get token {
     return _token;
   }
 
-  String get token1 {
+  String? get token1 {
     return _token1;
   }
 
@@ -51,11 +50,11 @@ class Auth with ChangeNotifier {
     return _allTeams;
   }
 
-  String get username {
+  String? get username {
     return _username;
   }
 
-  String get name {
+  String? get name {
     return _name;
   }
 
@@ -65,7 +64,7 @@ class Auth with ChangeNotifier {
     sendReg(token1);
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String? email, String? password) async {
     String url = 'https://api-devsoc.herokuapp.com/token/login';
 
     try {
@@ -106,12 +105,12 @@ class Auth with ChangeNotifier {
       return false;
     }
     final extractedUserData =
-        json.decode(prefs.getString('userData')) as Map<String, Object>;
+        json.decode(prefs.getString('userData')!) as Map<String, Object>;
     print('extractedUserData : ' + extractedUserData.toString());
-    _token = extractedUserData['token'];
-    _userType = extractedUserData['userType'];
-    _username = extractedUserData['username'];
-    _name = extractedUserData['name'];
+    _token = extractedUserData['token'] as String?;
+    _userType = extractedUserData['userType'] as String?;
+    _username = extractedUserData['username'] as String?;
+    _name = extractedUserData['name'] as String?;
     await _register();
     await getTeams();
     await getAllTeams();
@@ -123,7 +122,7 @@ class Auth with ChangeNotifier {
     String url = 'https://api-devsoc.herokuapp.com/list/';
     try {
       final response =
-          await http.get(Uri.parse(url), headers: {'Authorization': _token});
+          await http.get(Uri.parse(url), headers: {'Authorization': _token!});
       print(response.body);
       final responseBody = json.decode(response.body);
       _teams = responseBody;
@@ -143,12 +142,12 @@ class Auth with ChangeNotifier {
     double qualityRepr,
     double bussinessModel,
     double scalability,
-    String review,
+    String? review,
     String notes,
-    String suggestions,
-    String teamId,
-    String evalId,
-    int round,
+    String? suggestions,
+    String? teamId,
+    String? evalId,
+    int? round,
   ) async {
     print(round);
     print('Eval CP');
@@ -159,7 +158,7 @@ class Auth with ChangeNotifier {
 
       final res = await http.post(
         Uri.parse(url),
-        headers: {'Authorization': _token, 'Content-Type': 'application/json'},
+        headers: {'Authorization': _token!, 'Content-Type': 'application/json'},
         body: jsonEncode(
           {
             'novelty_slider': novelty.toInt(),
@@ -192,19 +191,19 @@ class Auth with ChangeNotifier {
     try {
       final response = await http.get(
         Uri.parse(url),
-        headers: {'Authorization': _token},
+        headers: {'Authorization': _token!},
       );
       print(response.body);
       _allTeams = json.decode(response.body);
     } catch (e) {}
   }
 
-  Future<void> sendReg(String deviceId) async {
+  Future<void> sendReg(String? deviceId) async {
     String url = 'http://api-devsoc.herokuapp.com/register/';
     try {
       final response = await http.post(
         Uri.parse(url),
-        headers: {'Authorization': _token},
+        headers: {'Authorization': _token!},
         body: {'device_id': deviceId},
       );
       print(response.body);
@@ -225,12 +224,12 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> changePass(
-      String currentPass, String newPass, String newConfirmPass) async {
+      String? currentPass, String? newPass, String? newConfirmPass) async {
     print('checkpointttttt');
     String url = 'http://api-devsoc.herokuapp.com/auth/users/set_password/';
     try {
       final response = await http.post(Uri.parse(url), headers: {
-        'Authorization': _token
+        'Authorization': _token!
       }, body: {
         'current_password': currentPass,
         'new_password': newPass,
@@ -256,7 +255,7 @@ class Auth with ChangeNotifier {
     print(1);
     String url = 'http://api-devsoc.herokuapp.com/auth/token/logout/';
     final response =
-        await http.get(Uri.parse(url), headers: {'Authorization': _token});
+        await http.get(Uri.parse(url), headers: {'Authorization': _token!});
     print(response.statusCode);
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
@@ -267,8 +266,8 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> message(bool messageCon, String messageHead, String messageBody,
-      String teamNumber) async {
+  Future<void> message(bool messageCon, String? messageHead, String? messageBody,
+      String? teamNumber) async {
     print('checkpointttttt');
     String url = 'https://api-devsoc.herokuapp.com/message/';
     String messageConf = 'False';
@@ -279,7 +278,7 @@ class Auth with ChangeNotifier {
     }
     try {
       final response = await http.post(Uri.parse(url), headers: {
-        'Authorization': _token
+        'Authorization': _token!
       }, body: {
         'message_conf': messageConf,
         'message_heading': messageHead,

@@ -31,7 +31,7 @@ class _ChangePassState extends State<ChangePass> {
   String errorMessage = '';
 
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     print('Checkpoint 1');
@@ -82,7 +82,7 @@ class _ChangePassState extends State<ChangePass> {
                       'Password could not changed. Please choose another password.'),
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text('OK'),
                     onPressed: () => Navigator.of(context).pop(),
                   ),

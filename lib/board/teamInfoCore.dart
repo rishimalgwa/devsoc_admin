@@ -4,23 +4,22 @@ import 'package:http/http.dart' as http;
 
 import '../providers/auth.dart';
 import 'dart:convert';
-import 'dart:wasm';
 
 class TeamInfoCore extends StatefulWidget {
   @override
   _TeamInfoCoreState createState() => _TeamInfoCoreState();
 
-  final String teamId;
+  final String? teamId;
   TeamInfoCore(this.teamId);
 }
 
 class _TeamInfoCoreState extends State<TeamInfoCore> {
   bool _isLoaded = false;
-  Map<String, dynamic> _teamData;
+  Map<String, dynamic>? _teamData;
 
   @override
   void initState() {
-    String _token = Provider.of<Auth>(context, listen: false).token;
+    String _token = Provider.of<Auth>(context, listen: false).token!;
     getInfo(_token);
     super.initState();
   }
@@ -32,7 +31,7 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
     print('yess');
     try {
       final response = await http.get(
-        url,
+        Uri.parse(url),
         headers: {'Authorization': _token},
       );
       print(response.body);
@@ -65,7 +64,7 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                   top: 30,
                                 ),
                                 child: Hero(
-                                  tag: widget.teamId,
+                                  tag: widget.teamId!,
                                   child: Text(
                                     'Team Info', // replace with dynamic teamName
                                     textAlign: TextAlign.center,
@@ -94,10 +93,10 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                           padding:
                                               const EdgeInsets.only(top: 15.0),
                                           child: Text(
-                                            "Team Name: ${_teamData['team_name']}",
+                                            "Team Name: ${_teamData!['team_name']}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -111,10 +110,10 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                           padding:
                                               const EdgeInsets.only(top: 15.0),
                                           child: Text(
-                                            "Team Number: ${_teamData['team_number']}",
+                                            "Team Number: ${_teamData!['team_number']}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -128,10 +127,10 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                           padding:
                                               const EdgeInsets.only(top: 15.0),
                                           child: Text(
-                                            "Team Idea: ${_teamData['idea']}",
+                                            "Team Idea: ${_teamData!['idea']}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -145,10 +144,10 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                           padding:
                                               const EdgeInsets.only(top: 15.0),
                                           child: Text(
-                                            "Team Leader: ${_teamData['team_leader']}",
+                                            "Team Leader: ${_teamData!['team_leader']}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -162,10 +161,10 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                           padding:
                                               const EdgeInsets.only(top: 15.0),
                                           child: Text(
-                                            "Phone: ${_teamData['team_leader_phone']}",
+                                            "Phone: ${_teamData!['team_leader_phone']}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -182,7 +181,7 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                             "Team Members : ",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -195,18 +194,18 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                         Padding(
                                             padding: const EdgeInsets.only(
                                                 top: 15.0, left: 20),
-                                            child: _teamData['team_mem'] == null
+                                            child: _teamData!['team_mem'] == null
                                                 ? Text('NO TEAM MATES',
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .headline6
+                                                        .headline6!
                                                         .copyWith(
                                                             fontSize: 18,
                                                             color: Colors.red))
                                                 : ListView.builder(
                                                     shrinkWrap: true,
                                                     itemCount:
-                                                        _teamData['team_mem']
+                                                        _teamData!['team_mem']
                                                             .length,
                                                     itemBuilder:
                                                         (BuildContext ctxt,
@@ -217,11 +216,11 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                                                       .only(
                                                                   top: 15.0),
                                                           child: Text(
-                                                            "$index ,${_teamData['team_mem'][index]}",
+                                                            "$index ,${_teamData!['team_mem'][index]}",
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline6
+                                                                .headline6!
                                                                 .copyWith(
                                                                   fontSize: 18,
                                                                   color: Colors
@@ -233,10 +232,10 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                           padding:
                                               const EdgeInsets.only(top: 15.0),
                                           child: Text(
-                                            "Track: ${_teamData['track']}",
+                                            "Track: ${_teamData!['track']}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -250,10 +249,10 @@ class _TeamInfoCoreState extends State<TeamInfoCore> {
                                           padding:
                                               const EdgeInsets.only(top: 15.0),
                                           child: Text(
-                                            "Status: ${_teamData['status']}",
+                                            "Status: ${_teamData!['status']}",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .headline6!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,

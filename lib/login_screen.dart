@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool visisblePassword = false;
   bool _isLoading = false;
   final GlobalKey<FormState> _formKey = GlobalKey();
-  Map<String, String> _authData = {
+  Map<String, String?> _authData = {
     'email': '',
     'password': '',
   };
@@ -26,10 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passController = TextEditingController();
 
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
     final email = _authData['email'];
     final password = _authData['password'];
     setState(() {
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(errorMessage),
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text('OK'),
                     onPressed: () => Navigator.of(context).pop(),
                   ),

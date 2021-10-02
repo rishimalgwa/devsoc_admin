@@ -83,7 +83,7 @@ class EssentialsScreen extends StatelessWidget {
                       backgroundColor: Color(0xff3284ff),
                       child: Text(
                         getInitials(
-                            Provider.of<Auth>(context, listen: false).name),
+                            Provider.of<Auth>(context, listen: false).name!),
                         style: TextStyle(
                             fontSize: 18,
                             fontFamily: 'SFProTextSemiMed',
