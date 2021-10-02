@@ -60,7 +60,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> _register() async {
-    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
     final token1 = await _firebaseMessaging.getToken();
     sendReg(token1);
   }
@@ -69,7 +69,7 @@ class Auth with ChangeNotifier {
     String url = 'https://api-devsoc.herokuapp.com/token/login';
 
     try {
-      final response = await http.post(url, body: {
+      final response = await http.post(Uri.parse(url), body: {
         'username': email,
         'password': password,
       });
@@ -122,7 +122,8 @@ class Auth with ChangeNotifier {
   Future<void> getTeams() async {
     String url = 'https://api-devsoc.herokuapp.com/list/';
     try {
-      final response = await http.get(url, headers: {'Authorization': _token});
+      final response =
+          await http.get(Uri.parse(url), headers: {'Authorization': _token});
       print(response.body);
       final responseBody = json.decode(response.body);
       _teams = responseBody;
@@ -157,7 +158,7 @@ class Auth with ChangeNotifier {
       final url = 'http://api-devsoc.herokuapp.com/evaluvate/';
 
       final res = await http.post(
-        url,
+        Uri.parse(url),
         headers: {'Authorization': _token, 'Content-Type': 'application/json'},
         body: jsonEncode(
           {
@@ -190,7 +191,7 @@ class Auth with ChangeNotifier {
     String url = 'http://api-devsoc.herokuapp.com/team/names';
     try {
       final response = await http.get(
-        url,
+        Uri.parse(url),
         headers: {'Authorization': _token},
       );
       print(response.body);
@@ -202,7 +203,7 @@ class Auth with ChangeNotifier {
     String url = 'http://api-devsoc.herokuapp.com/register/';
     try {
       final response = await http.post(
-        url,
+        Uri.parse(url),
         headers: {'Authorization': _token},
         body: {'device_id': deviceId},
       );
@@ -228,7 +229,7 @@ class Auth with ChangeNotifier {
     print('checkpointttttt');
     String url = 'http://api-devsoc.herokuapp.com/auth/users/set_password/';
     try {
-      final response = await http.post(url, headers: {
+      final response = await http.post(Uri.parse(url), headers: {
         'Authorization': _token
       }, body: {
         'current_password': currentPass,
@@ -254,7 +255,8 @@ class Auth with ChangeNotifier {
   Future<void> logout() async {
     print(1);
     String url = 'http://api-devsoc.herokuapp.com/auth/token/logout/';
-    final response = await http.get(url, headers: {'Authorization': _token});
+    final response =
+        await http.get(Uri.parse(url), headers: {'Authorization': _token});
     print(response.statusCode);
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
@@ -276,7 +278,7 @@ class Auth with ChangeNotifier {
       messageConf = 'False';
     }
     try {
-      final response = await http.post(url, headers: {
+      final response = await http.post(Uri.parse(url), headers: {
         'Authorization': _token
       }, body: {
         'message_conf': messageConf,

@@ -32,7 +32,7 @@ class _TeamInfoState extends State<TeamInfo> {
 
     try {
       final response = await http.get(
-        url,
+        Uri.parse(url),
         headers: {'Authorization': _token},
       );
       print(response.body);

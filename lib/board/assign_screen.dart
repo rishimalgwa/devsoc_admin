@@ -35,7 +35,7 @@ class _AssignScreenState extends State<AssignScreen> {
   Future<void> _submit() async {
     String url = 'http://api-devsoc.herokuapp.com/members/assign/';
     final eval = assignedEvaluators;
-    final response = await http.post(url,
+    final response = await http.post(Uri.parse(url),
         headers: {
           'Authorization': Provider.of<Auth>(context, listen: false).token,
           'Headers': 'application/json'
@@ -73,7 +73,7 @@ class _AssignScreenState extends State<AssignScreen> {
     String url = 'http://api-devsoc.herokuapp.com/members';
     try {
       final response = await http.get(
-        url,
+        Uri.parse(url),
         headers: {
           'Authorization': Provider.of<Auth>(context, listen: false).token
         },
